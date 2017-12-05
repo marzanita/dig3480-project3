@@ -78,7 +78,7 @@
     }
     var maxRadius = 30;
 
-    var colorArray = [
+    var colorCircleArray = [
         '#d4a1ff',
         '#a1e0ff',
         '#d8ffa1',
@@ -100,9 +100,48 @@
 
     });
 
-    addEventListener("click", function() {
+    // addEventListener("click", function() {
 
-    });
+    // });
+
+    canvas.onclick = function(event) {
+
+     handleClick(event.clientX, event.clientY);
+
+    };
+
+    function handleClick(x, y) {
+        var colorTriangleArray = [
+        '#581845',
+        '#900C3F',
+        '#C70039',
+        '#FF5733',
+        '#FFC30F',
+        ];
+
+        var triangles = [];  
+        
+        triangles.push(new Triangle(x, y, colorTriangleArray));
+        for (var i = 0; i < triangles.length; i++) {
+            drawTriangle(triangles[i]);
+        }
+     
+    }
+
+    function Triangle(x, y, colorTriangleArray) {
+        this.x = x;
+        this.y = y;
+        this.color = colorTriangleArray[Math.floor(Math.random() * colorTriangleArray.length)]; 
+    }
+
+    function drawTriangle(triangle) {
+        c.beginPath();
+        c.moveTo(triangle.x, triangle.y); // assumes x is 75, y is 50
+        c.lineTo(triangle.x + 25, triangle.y + 25); 
+        c.lineTo(triangle.x + 25, triangle.y - 25);
+        c.fillStyle = triangle.color;
+        c.fill();
+    }
 
     function Circle(x, y, dx, dy, radius) {
         this.x = x;
@@ -111,7 +150,7 @@
         this.dy = dy;
         this.radius = radius;
         this.minRadius = radius;
-        this.color = colorArray[Math.floor(Math.random() * colorArray.length)];
+        this.color = colorCircleArray[Math.floor(Math.random() * colorCircleArray.length)];
 
         this.draw = function () {
             c.beginPath();
@@ -177,8 +216,8 @@
     }
 
 
-    init();
-    animate();
+    // init();
+    // animate();
 </script>
 
 </html>
